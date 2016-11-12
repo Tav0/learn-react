@@ -88,7 +88,7 @@ apirouter
                 )
                 .then(function(result) {
                     return res.json({
-                        users: usersArr(result),
+                        userlist: usersArr(result),
                         has_more: (result.length < 10) ? false : true
                     });
                 })
@@ -107,7 +107,7 @@ apirouter
                 )
                 .then(function(result) {
                     return res.json({
-                        users: usersArr(result),
+                        userlist: usersArr(result),
                         has_more: (result.length < 10) ? false : true
                     });
                 })

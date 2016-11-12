@@ -77,7 +77,7 @@ class NavBar extends React.Component {
                 <LinkContainer to={this.props.loginUrl}>
                     <NavItem>Login</NavItem>
                 </LinkContainer>
-              } 
+              }
             </Nav>
 
             { menus.leftdropdowns &&

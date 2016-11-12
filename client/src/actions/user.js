@@ -1,6 +1,7 @@
 import api from '../api';
 import apiAction from './apiAction';
-import config from '../config/';
+//import config from '../config/';
+import { browserHistory } from 'react-router';
 
 export function register({ username, firstname, lastname, password, email }) {
     return apiAction({
@@ -16,26 +17,18 @@ export function register({ username, firstname, lastname, password, email }) {
         },
         onSuccess(dispatch, data, getState) {
             console.log("registered successfully!");
-            //console.dir(data);
-            location.href = `${config.publicUrl}/`;
+            browserHistory.replace(`/login`);
         }
     });
 }
 
-export function updateProfile(id, { username, firstname, lastname, password, email }, onSuccess) {
+export function updateProfile(id, { username, firstname, lastname, password, email }) {
     return apiAction({
-        baseType: 'UPDATE',
+        baseType: 'UPDATE_PROFILE',
         fetch() {
-            let user = username || '',
-                fname = firstname || '',
-                lname = lastname || '',
-                pass = password || '',
-                mail = email || ''
-
             return api.user.updateProfile(
                 id,
-                {user, fname, lname, pass, mail},
-                onSuccess);
+                { username, firstname, lastname, password, email });
         },
         onSuccess(dispatch, data, getState) {
             console.log('updated');
@@ -44,13 +37,19 @@ export function updateProfile(id, { username, firstname, lastname, password, ema
 }
 
 export function getProfile(id) {
-/*
- * Implement FETCH_PROFILE.
- */
+    return apiAction({
+        baseType: 'FETCH_PROFILE',
+        fetch() {
+            return api.user.getProfile(id);
+        }
+    });
 }
 
 export function listusers({ page }) {
-/*
- * Implement FETCH_USER_LIST.
- */
+    return apiAction({
+        baseType: 'FETCH_USER_LIST',
+        fetch() {
+            return api.user.listusers(page);
+        }
+    });
 }

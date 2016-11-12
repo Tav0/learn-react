@@ -30,7 +30,6 @@ class LoginForm extends React.Component {
     } = this.props;
 
     // use this to examine all props redux-form merges into props
-    // console.dir(this.props);
 
     return (
       <Form onSubmit={handleSubmit(onSubmit)}>

@@ -21,7 +21,7 @@ const routes = (
       <Route path={`${config.publicUrl}/logout`} component={LogoutPage} />
       <Route path={`${config.publicUrl}/register`} component={RegisterPage} />
       <Route path={`${config.publicUrl}/profile`} component={ProfilePage} onEnter={checkAuth} />
-      <Route path={`${config.publicUrl}/listusers`} component={ListUsersPage} onEnter={checkAuth} />
+      <Route path={`${config.publicUrl}/users`} component={ListUsersPage} onEnter={checkAuth} />
       <Route path={`*`} component={NotFoundPage} />
     </Route>
   </Router>

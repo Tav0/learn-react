@@ -1,27 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Alert } from 'react-bootstrap';
+import { listusers } from '../actions/user.js';
+import { Pager, Alert } from 'react-bootstrap';
 import { isLoading, isError } from '../util/loadingObject';
-import { LinkContainer } from 'react-router-bootstrap';
+//import { LinkContainer } from 'react-router-bootstrap';
+import UserList from '../components/templates/UserList.js';
 
 // workaround for https://github.com/react-bootstrap/react-bootstrap/issues/2304
 // replace with Pager.Item once fixed
-import FixedPagerItem from '../util/fixPagerItem';
+//import FixedPagerItem from '../util/fixPagerItem';
 
 /**
  * Lists users, including pagination.
  */
 class ListAllUserPage extends React.Component {
     static contextTypes = {
-        history: React.PropTypes.object.isRequired
+        history: React.PropTypes.object.isRequired,
+        router: React.PropTypes.object
     }
-
     /* fetch user list, using the ?page= query param in URL */
     fetchData(location) {
         const page = location.query.page || 0;
         // implement me - fetch the actual data
-        this.page = Number(page)
+        this.page = Number(page);
+        this.props.dispatch(listusers({ page }));
     }
 
     /* Component is about to display - fetch the data from the server */
@@ -54,7 +57,7 @@ class ListAllUserPage extends React.Component {
 
     // go to next page
     nextPage() {
-        this.context.history.push(this.nextPageUrl())
+        this.context.router.push(this.nextPageUrl())
     }
 
     prevPageUrl() {
@@ -64,24 +67,34 @@ class ListAllUserPage extends React.Component {
     }
 
     prevPage() {
-        this.context.history.push(this.prevPageUrl())
+        this.context.router.push(this.prevPageUrl())
     }
 
     render() {
-        const userlist = this.props.userlist
+        const userlist = this.props.userlist;
 
         if (isLoading(userlist)) return (<p>Loading...</p>);
         if (isError(userlist)) return (<Alert bsStyle='danger'>{userlist.error.response.statusText}</Alert>);
+
         return (
-          <div>Implement a table here that lists the current userlist. 
-            Check out Pager and Table from react-bootstrap
-            You could implement pagination like so:
-               { this.hasNextPage() &&
-                <LinkContainer to={this.nextPageUrl()}>
-                  <FixedPagerItem next>Next Page &rarr;</FixedPagerItem>
-                </LinkContainer>
-               }
-          </div>
+            <div>
+                <UserList userlist={this.props.userlist.userlist} />
+                <Pager>
+                    <Pager.Item
+                        onClick={() => this.prevPage()}
+                        previous
+                        disabled={!this.hasPrevPage()}>
+                    &larr; Previous
+                    </Pager.Item>
+                    <Pager.Item
+                        onClick={() => this.nextPage()}
+                        next
+                        disabled={!this.hasNextPage()}>
+                        &rarr; Next
+                    </Pager.Item>
+                </Pager>
+
+            </div>
         );
     }
 }

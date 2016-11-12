@@ -1,5 +1,5 @@
 import React from 'react';
-import { LinkContainer } from 'react-router-bootstrap';
+//import { LinkContainer } from 'react-router-bootstrap';
 import { Alert, Button, ButtonToolbar, 
          Form, FormGroup } from 'react-bootstrap';
 import { propTypes as reduxFormPropTypes } from 'redux-form';
@@ -11,7 +11,7 @@ import LabeledFormField from './LabeledFormField';
  * This form (for now at least) doubles as registration and profile
  * update form.
  */
-class RegisterForm extends React.Component {
+class ProfileForm extends React.Component {
   static propTypes = {
     ...reduxFormPropTypes,
     onSubmit : React.PropTypes.func.isRequired,
@@ -54,11 +54,13 @@ class RegisterForm extends React.Component {
               disabled={!valid}
               type='submit'
               bsStyle='success'>
-              Submit
+              Update
             </Button>
+            {/* TO-DO: make sure edit hides and just display the user's info
+             *
             <LinkContainer to={'/'}>
               <Button>Cancel</Button>
-            </LinkContainer>
+            </LinkContainer>*/}
          </ButtonToolbar>
       </Form>
     );
@@ -80,7 +82,7 @@ function mapStateToProps(state) {
 }
 
 export default connectedForm({
-  form: 'login',
+  form: 'profile',
   validate,
-}, mapStateToProps)(RegisterForm);
+}, mapStateToProps)(ProfileForm);
 

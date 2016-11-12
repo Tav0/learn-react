@@ -5,6 +5,7 @@ import { Panel, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { isLoading } from '../util/loadingObject';
 import { register } from '../actions/user.js';
+import config from '../config/';
 import RegisterForm from '../containers/forms/RegisterForm';
 
 class RegisterPage extends React.Component {
@@ -13,16 +14,16 @@ class RegisterPage extends React.Component {
     }
 
     // how to dispatch the action that registers the user
-    doRegister(userobject) {
-        this.props.dispatch(register(userobject))
+    doRegister(userObj) {
+        this.props.dispatch(register(userObj))
     }
 
     render() {
         const user = this.props.user
         return (
             <Row>
-                <Col xsOffset={0} xs={10} smOffset={4} sm={4}>
-                    <Panel header={<h1>Please log in</h1>} >
+                <Col xsOffset={0} xs={12} smOffset={4} sm={4}>
+                    <Panel header={<h1>Register an account</h1>} >
                         <RegisterForm
                             loading={isLoading(user)}
                             error={user.error}
@@ -30,7 +31,7 @@ class RegisterPage extends React.Component {
                     </Panel>
                     <div className="text-center">
                         Have an account?
-                        <Link to='/login'> Login</Link>.
+                        <Link to={`${config.publicUrl}/login`}> Login</Link>.
                     </div>
                 </Col>
             </Row>

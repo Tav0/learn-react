@@ -10,7 +10,8 @@ import LoginForm from '../containers/forms/LoginForm';
 
 class LoginPage extends React.Component {
   static contextTypes = {
-    history: React.PropTypes.object.isRequired
+    history: React.PropTypes.object.isRequired,
+    router: React.PropTypes.object
   }
 
   static propTypes = {
@@ -25,7 +26,7 @@ class LoginPage extends React.Component {
    */
   goNext() {
     const { next, ...query } = this.props.location.query;
-    this.context.history.push({
+    this.context.router.push({
       pathname: next || `${config.publicUrl}/`,
       query: query
     })
@@ -46,7 +47,7 @@ class LoginPage extends React.Component {
     const user = this.props.user
     return (
       <Row>
-        <Col xsOffset={0} xs={10} smOffset={4} sm={4}>
+        <Col xsOffset={0} xs={12} smOffset={4} sm={4}>
           <Panel header={<h1>Please log in</h1>} >
             <LoginForm
                 loading={isLoading(user)}
@@ -55,7 +56,7 @@ class LoginPage extends React.Component {
           </Panel>
           <div className="text-center">
               Don't have an account?
-              <Link to='/register'> Sign up</Link> for one.
+              <Link to={`${config.publicUrl}/register`}> Sign up</Link> for one.
           </div>
         </Col>
       </Row>

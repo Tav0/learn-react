@@ -22,11 +22,10 @@ export function updateProfile(id, { username, firstname, lastname, password, ema
 
 export function getProfile(id)
 {
-    // implement
+    return new APIResource(buildURL( `/users/${id}` )).get();
 }
 
-export function listusers({ page })
+export function listusers(page)
 {
-    // implement
+    return new APIResource(buildURL( `/users` )).get({ page });
 }
-

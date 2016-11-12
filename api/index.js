@@ -29,28 +29,28 @@ const ensureLogin = (req, res, next) => {
 apirouter.post('/login',
     passport.authenticate('local'),
     (req, res) => {
-        res.json({ message: "you are successfully authenticated" })
+        const { admin, id, username, email, firstname, lastname } = req.user;
+
+        res.json(
+            admin ?
+                { admin, id, username, email, firstname, lastname } :
+                { id, username, email, firstname, lastname }
+        )
     }
 );
 
 apirouter.get('/login',
     ensureLogin,
     (req, res) => {
-        let id = req.user.id;
-        let username = req.user.username;
-        let email = req.user.email;
-        let firstname = req.user.firstname;
-        let lastname = req.user.lastname;
+        const { admin, id, username, email, firstname, lastname } = req.user;
+        let user =
+            admin ?
+            { admin, id, username, email, firstname, lastname } :
+            { id, username, email, firstname, lastname };
 
         res.set('Content-Type', 'application/javascript');
         res.send(
-            `var authState = {
-                id: '${id}',
-                username: '${username}',
-                email: '${email}',
-                firstname: '${firstname}',
-                lastname: '${lastname}'
-            }`
+            `var authState = ${ JSON.stringify(user) }`
         );
     }
 );

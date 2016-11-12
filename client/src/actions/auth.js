@@ -1,6 +1,6 @@
 import api from '../api';
 import apiAction from './apiAction';
-import config from '../config/';
+//import config from '../config/';
 
 // this function is an "action creator"
 // the action created, however, is a thunk.
@@ -14,7 +14,7 @@ export function login(username, password) {
         onSuccess(dispatch, data, getState) {
             console.log("Successfully logged in!");
             //console.dir(data);
-            location.href = `${config.publicUrl}/`;
+            //location.href = `${config.publicUrl}/`;
         },
     });
 }

@@ -12,8 +12,8 @@ class AppContainer extends React.Component {
     return (
       <div>
           <TopNavBar branding="Cloud App"
-                     menus={config.menus} 
-                     user={this.props.user} 
+                     menus={config.menus}
+                     user={this.props.user}
                      loginUrl={`${config.publicUrl}/login`}
                      logoutUrl={`${config.publicUrl}/logout`}
             />

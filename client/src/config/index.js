@@ -25,7 +25,7 @@ const menus = {
             label: "Admin",
             onlyifadmin: true,
             entries: [
-              { path: `${publicUrl}/listusers?page=0`, label: "List All Users" }
+              { path: `${publicUrl}/users?page=0`, label: "List All Users" }
             ]
         }
     ]
