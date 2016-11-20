@@ -67,8 +67,9 @@ class RegisterForm extends React.Component {
 
 const validate = (values) => {
     const errors = {}
-    // implement me
-
+    if (!values.password || values.password.length < 6) {
+        errors.password = "Password needs to be longer than 6 characters";
+    }
     return errors
 }
 
@@ -80,7 +81,9 @@ function mapStateToProps(state) {
 }
 
 export default connectedForm({
-  form: 'login',
+  form: 'register',
+  touchOnChange: false,
+  touchOnBlur: true,
   validate,
 }, mapStateToProps)(RegisterForm);
 
